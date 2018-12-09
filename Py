@@ -1,0 +1,89 @@
+import dash
+import dash_table
+import dash_core_components as dcc
+import dash_html_components as html
+import pandas as pd
+from flask import Flask
+
+df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/solar.csv')
+df = pd.concat([df, df,df,df,df,df,df,df,df,df,df,df,df,df,df])
+
+Flask.env = 'development'
+app = dash.Dash(__name__)
+
+
+app.layout = html.Div([
+                       # Div 1 - Banner 
+                       html.Div([
+                                 html.H2('Testing Dashboard'),
+                                 html.Img(src='https:c//vignette.wikia.nocookie.net/animal-jam-clans-1/images/0/03/Tumblr_static_tumblr_mju3pvaga61rat6oko1_500.png/revision/latest?cb=20160423063847')],
+                                 className = 'banner'),
+                       
+                       # Div 2- Failed Jobs + Upcoming      
+                       html.Div([
+                                 # container for failed jobs
+                                 html.Div([
+                                           html.H3('Failed Jobs'), # failed jobs table header
+                                           
+                                           # dataframe for failed jobs
+                                           dash_table.DataTable( 
+                                                                data = df.to_dict('rows'),
+                                                                columns = [{'id': c, 'name': c} for c in df.columns],
+                                                                #n_fixed_rows = 1, ## known bug. track issue #201
+                                                                style_cell_conditional=[
+                                                                                        {'if': {'row_index': 'odd'},
+                                                                                         'backgroundColor': 'rgb(248, 248, 248)'}],
+
+                                                                style_header={
+                                                                              'backgroundColor': 'white',
+                                                                              'fontWeight': 'bold',
+                                                                              'text-align' : 'center'
+                                                                              },
+                                                                        
+                                                                style_table={
+                                                                             'maxHeight': '300px',
+                                                                             'overflowY': 'scroll'}
+                                                                )],
+                                                                className = 'failed-jobs'),
+
+                                 # container for upcoming jobs 
+                                 html.Div([
+                                           html.H3('Upcoming Jobs'), # upcoming jobs table header
+                                           
+                                           # dataframe for upcoming jobs
+                                           dash_table.DataTable( 
+                                                                data = df.to_dict('rows'),
+                                                                columns = [{'id': c, 'name': c} for c in df.columns],
+                                                                #n_fixed_rows = 1, ## known bug. track issue #201
+                                                                style_cell_conditional=[
+                                                                                        {'if': {'row_index': 'odd'},
+                                                                                         'backgroundColor': 'rgb(248, 248, 248)'}],
+
+                                                                style_header={
+                                                                              'backgroundColor': 'white',
+                                                                              'fontWeight': 'bold',
+                                                                              'text-align' : 'center'
+                                                                              },
+                                                                        
+                                                                style_table={
+                                                                             'maxHeight': '300px',
+                                                                             'overflowY': 'scroll'}
+                                                                )],
+                                                                className = 'upcoming-jobs')
+                                                                ]),
+
+
+
+
+
+                       ],
+                       style={'padding': '0px 10px 15px 10px',
+                              'marginLeft': 'auto',
+                              'marginRight': 'auto',
+                              'width': 'auto',
+                              'height': '1800px',
+                              'boxShadow': '0px 0px 5px 5px rgba(204,204,204,0.4)'})
+
+
+if __name__ == '__main__':
+    app.run_server(debug = False, dev_tools_hot_reload = True)
