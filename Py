@@ -11,6 +11,15 @@ df = pd.concat([df, df,df,df,df,df,df,df,df,df,df,df,df,df,df])
 Flask.env = 'development'
 app = dash.Dash(__name__)
 
+style_cell_conditional = {'if': {'row_index': 'odd'},
+                          'backgroundColor': 'rgb(248, 248, 248)'}
+
+style_header = {'backgroundColor': 'grey',
+                'fontWeight': 'bold',
+                'text-align' : 'center'}
+                                                                        
+style_table = {'maxHeight': '350px',
+               'overflowY': 'scroll'}
 
 app.layout = html.Div([
                        # Div 1 - Banner 
@@ -29,21 +38,12 @@ app.layout = html.Div([
                                            dash_table.DataTable( 
                                                                 data = df.to_dict('rows'),
                                                                 columns = [{'id': c, 'name': c} for c in df.columns],
+                                                                sorting=True,
+                                                                sorting_type="multi",
                                                                 #n_fixed_rows = 1, ## known bug. track issue #201
-                                                                style_cell_conditional=[
-                                                                                        {'if': {'row_index': 'odd'},
-                                                                                         'backgroundColor': 'rgb(248, 248, 248)'}],
-
-                                                                style_header={
-                                                                              'backgroundColor': 'white',
-                                                                              'fontWeight': 'bold',
-                                                                              'text-align' : 'center'
-                                                                              },
-                                                                        
-                                                                style_table={
-                                                                             'maxHeight': '300px',
-                                                                             'overflowY': 'scroll'}
-                                                                )],
+                                                                style_cell_conditional=[style_cell_conditional],
+                                                                style_header=style_header,      
+                                                                style_table=style_table)],
                                                                 className = 'failed-jobs'),
 
                                  # container for upcoming jobs 
@@ -55,23 +55,47 @@ app.layout = html.Div([
                                                                 data = df.to_dict('rows'),
                                                                 columns = [{'id': c, 'name': c} for c in df.columns],
                                                                 #n_fixed_rows = 1, ## known bug. track issue #201
-                                                                style_cell_conditional=[
-                                                                                        {'if': {'row_index': 'odd'},
-                                                                                         'backgroundColor': 'rgb(248, 248, 248)'}],
-
-                                                                style_header={
-                                                                              'backgroundColor': 'white',
-                                                                              'fontWeight': 'bold',
-                                                                              'text-align' : 'center'
-                                                                              },
-                                                                        
-                                                                style_table={
-                                                                             'maxHeight': '300px',
-                                                                             'overflowY': 'scroll'}
-                                                                )],
+                                                                sorting=True,
+                                                                sorting_type="multi",                                                                
+                                                                style_cell_conditional=[style_cell_conditional],
+                                                                style_header=style_header,      
+                                                                style_table=style_table)],
                                                                 className = 'upcoming-jobs')
                                                                 ]),
+                       # Div 3 - Success Jobs + running      
+                       html.Div([
+                                 # container for running jobs
+                                 html.Div([
+                                           html.H3('Executing Jobs'), # running jobs table header
+                                           
+                                           # dataframe for running jobs
+                                           dash_table.DataTable( 
+                                                                data = df.to_dict('rows'),
+                                                                columns = [{'id': c, 'name': c} for c in df.columns],
+                                                                #n_fixed_rows = 1, ## known bug. track issue #201
+                                                                sorting=True,
+                                                                sorting_type="multi",
+                                                                style_cell_conditional=[style_cell_conditional],
+                                                                style_header=style_header,      
+                                                                style_table=style_table)],
+                                                                className = 'running-jobs'),
 
+                                 # container for success jobs 
+                                 html.Div([
+                                           html.H3('Successful Jobs'), # success jobs table header
+                                           
+                                           # dataframe for success jobs
+                                           dash_table.DataTable( 
+                                                                data = df.to_dict('rows'),
+                                                                columns = [{'id': c, 'name': c} for c in df.columns],
+                                                                #n_fixed_rows = 1, ## known bug. track issue #201
+                                                                sorting=True,
+                                                                sorting_type="multi",                                                                
+                                                                style_cell_conditional=[style_cell_conditional],
+                                                                style_header=style_header,      
+                                                                style_table=style_table)],
+                                                                className = 'success-jobs')
+                                                                ])
 
 
 
@@ -87,3 +111,23 @@ app.layout = html.Div([
 
 if __name__ == '__main__':
     app.run_server(debug = False, dev_tools_hot_reload = True)
+    
+    
+import pandas as pd
+from datetime import datetime
+import numpy as np
+date_rng = pd.date_range(start='1/1/2018', end='1/08/2018', freq='D')
+df = pd.DataFrame(date_rng, columns=['date'])
+df['data'] = np.random.randint(0,100,size=(len(date_rng)))
+df.head(15)
+
+from pandas.tseries.offsets import BMonthEnd
+from datetime import date
+
+d=date(2018,6,1)
+
+offset = BMonthEnd()
+
+#Last day of current month
+print(offset.rollforward(d).strftime('%A, %d %b'))
+
