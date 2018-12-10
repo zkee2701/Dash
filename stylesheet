@@ -38,13 +38,13 @@ body{
 }
 
 .failed-jobs{
-    width: 66%;
+    width: 61%;
     float: left;
     font-size: 0.6em;
-    border-bottom: 1.25px solid rgb(216, 216, 216);
-    border-top: 1.25px solid rgb(216, 216, 216);
-    border-left: 1.25px solid rgb(216, 216, 216);
-    border-right: 1.25px solid rgb(216, 216, 216);
+    border-bottom: 10px solid rgb(216, 216, 216);
+    border-top: 10px solid rgb(216, 216, 216);
+    border-left: 10px solid rgb(216, 216, 216);
+    border-right: 10px solid rgb(216, 216, 216);
 }
 
 .failed-jobs h3{
@@ -58,18 +58,18 @@ body{
     color: rgb(66, 196, 247);
     margin-top: 3px;
     margin-bottom: 5px;
-    width: 66%;
+    width: 61%;
     float: left;	
 }
 
 .upcoming-jobs{
-    width: 33%;
+    width: 35%;
     float: right;
     font-size: 0.6em;
-    border-bottom: 1.25px solid rgb(216, 216, 216);
-    border-top: 1.25px solid rgb(216, 216, 216);
-    border-left: 1.25px solid rgb(216, 216, 216);
-    border-right: 1.25px solid rgb(216, 216, 216);
+    border-bottom: 10px solid rgb(216, 216, 216);
+    border-top: 10px solid rgb(216, 216, 216);
+    border-left: 10px solid rgb(216, 216, 216);
+    border-right: 10px solid rgb(216, 216, 216);
 }
 
 .upcoming-jobs h3{
@@ -83,6 +83,57 @@ body{
     color: rgb(66, 196, 247);
     margin-top: 3px;
     margin-bottom: 5px;
-    width: 33%;
+    width: 35%;
     float: left;
+}
+
+.running-jobs h3{
+    margin-top:0;
+    margin-bottom:2rem;
+    margin-left: 3%;
+    font-weight:50;
+    line-height:1.3;
+    letter-spacing:-.1rem;
+    font-size: 1.5rem;
+    color: rgb(66, 196, 247);
+    margin-top: 3px;
+    margin-bottom: 5px;
+    width: 35%;
+    float: left;
+}
+
+.running-jobs{
+    width: 35%;
+    float: left;
+    font-size: 0.6em;
+    margin-top: 15px;
+    border-bottom: 10px solid rgb(216, 216, 216);
+    border-top: 10px solid rgb(216, 216, 216);
+    border-left: 10px solid rgb(216, 216, 216);
+    border-right: 10px solid rgb(216, 216, 216);
+}
+.success-jobs h3{
+    margin-top:0;
+    margin-bottom:2rem;
+    margin-left: 3%;
+    font-weight:50;
+    line-height:1.3;
+    letter-spacing:-.1rem;
+    font-size: 1.5rem;
+    color: rgb(66, 196, 247);
+    margin-top: 3px;
+    margin-bottom: 5px;
+    width: 61%;
+    float: left;	
+}
+
+.success-jobs{
+    width: 61%;
+    float: right;
+    font-size: 0.6em;
+    margin-top: 15px;
+    border-bottom: 10px solid rgb(216, 216, 216);
+    border-top: 10px solid rgb(216, 216, 216);
+    border-left: 10px solid rgb(216, 216, 216);
+    border-right: 10px solid rgb(216, 216, 216);
 }
