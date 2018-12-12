@@ -1,0 +1,18 @@
+app.layout = html.Div([
+    html.H1('Log in to GIS1'),
+    dcc.Input(id='input-1-state', type='text', placeholder='Username'),
+    html.Div([dcc.Input(id='input-2-state', type='text', placeholder='Password')], className = 'passwordbox'),
+    html.Button(id='submit-button', n_clicks=0, children='Log in')],
+    className = 'loginscreen')
+
+
+@app.callback(dash.dependencies.Output('output-state', 'children'),
+              [dash.dependencies.Input('submit-button', 'n_clicks')],
+              [dash.dependencies.State('input-1-state', 'value'),
+               dash.dependencies.State('input-2-state', 'value')])
+def loggingin(n_clicks, input1, input2):
+    return u'''
+        The Button has been pressed {} times,
+        Input 1 is "{}",
+        and Input 2 is "{}"
+    '''.format(n_clicks, input1, input2)
